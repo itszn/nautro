@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Builder - Nautro</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .deck-builder-container {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
+        
+        .card-collection {
+            flex: 2;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .deck-area {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            border: 2px solid #26d0ce;
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            min-height: 200px;
+        }
+        
+        .deck-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 200px;
+        }
+        
+        .deck-card {
+            width: 100%;
+            height: 56px;
+            background: linear-gradient(145deg, #1e3c72, #2a5298);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #26d0ce;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .deck-card:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
+            border-color: #ff6b6b;
+        }
+        
+        .deck-card-image {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .deck-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .deck-card-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .deck-card-stats {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .card.disabled:hover {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .deck-stats {
+            margin-bottom: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .deck-count {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #26d0ce;
+            margin-bottom: 10px;
+        }
+        
+        .submit-deck-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(45deg, #26d0ce, #1a2980);
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-deck-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(38, 208, 206, 0.6);
+        }
+        
+        .submit-deck-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .clear-deck-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-deck-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
+        }
+        
+        .placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .download-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #26d0ce, #1a2980);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(38, 208, 206, 0.3);
+            text-decoration: none;
+            z-index: 10;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(38, 208, 206, 0.6);
+        }
+        
+        .upload-card-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(45deg, #26d0ce, #1a2980);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(38, 208, 206, 0.3);
+        }
+        
+        .upload-card-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(38, 208, 206, 0.6);
+        }
+
+        .card {
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="main-content">
+            <!-- Header -->
+            <div class="game-header">
+                <div class="game-title">
+                    <h1>Deck Builder</h1>
+                    <div class="subtitle">Build your perfect deck</div>
+                </div>
+                <div class="game-actions">
+                    <a href="#" id="back-to-game-btn" class="action-btn secondary">Back to Game</a>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div id="loading-overlay" class="loading-overlay">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading...</div>
+            </div>
+
+            <!-- Status Message -->
+            <div class="game-status">
+                <div id="status-message" class="status-message">Loading card collection...</div>
+            </div>
+
+            <!-- Error Container -->
+            <div id="error-container" class="error-message" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <div class="error-text"></div>
+            </div>
+
+            <!-- Deck Builder Container -->
+            <div class="deck-builder-container">
+                <!-- Card Collection -->
+                <div class="card-collection">
+                    <div class="section-header">
+                        <h2 class="section-title">Card Collection</h2>
+                        <div class="upload-container">
+                            <input type="file" id="card-file-input" accept="*" style="display: none;">
+                            <button id="upload-card-btn" class="upload-card-btn">📁 Load Card</button>
+                        </div>
+                    </div>
+                    <div id="card-collection-grid" class="collection-grid">
+                        <div class="placeholder">Loading card collection...</div>
+                    </div>
+                </div>
+
+                <!-- Deck Area -->
+                <div class="deck-area">
+                    <div class="section-header">
+                        <h2 class="section-title">Current Deck</h2>
+                        <button id="clear-deck-btn" class="clear-deck-btn">Clear Deck</button>
+                    </div>
+                    
+                    <div class="deck-stats">
+                        <div class="deck-count">
+                            <span id="deck-count">0</span> cards in deck
+                        </div>
+                    </div>
+                    
+                    <div id="deck-grid" class="deck-grid">
+                        <div class="placeholder">Add cards to your deck</div>
+                    </div>
+                    
+                    <button id="submit-deck-btn" class="submit-deck-btn" disabled>
+                        Update Deck
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/deck_builder.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nautro - Card Survival Game</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Resource Sidebar -->
+        <aside class="resource-sidebar" id="resources-container">
+            <!-- Resources will be dynamically generated here -->
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header with game info -->
+            <header class="game-header">
+                <div class="game-title">
+                    <h1>NAUTRO</h1>
+                </div>
+                <div class="epoch-info">
+                    <div class="epoch-counter">
+                        <span class="label">Epoch</span>
+                        <span class="value" id="epoch">1</span>
+                    </div>
+                    <div class="escape-threshold">
+                        <span class="label">Escape Target</span>
+                        <span class="value" id="escape-target">100</span>
+                    </div>
+                    <div class="turn-info">
+                        <div class="sets-left">
+                            <span class="label">Sets Left</span>
+                            <span class="value" id="sets-left">-</span>
+                        </div>
+                        <div class="discards-left">
+                            <span class="label">Discards Left</span>
+                            <span class="value" id="discards-left">-</span>
+                        </div>
+                        <div class="set-size">
+                            <span class="label">Set Size</span>
+                            <span class="value" id="set-size">-</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+        <!-- Game Actions -->
+        <section class="game-actions">
+            <button id="new-game-btn" class="action-btn primary">New Game</button>
+            <button id="deck-builder-btn" class="action-btn primary" disabled>Deck Builder</button>
+            <button id="submit-hand-btn" class="action-btn secondary" disabled>Play Selected Cards</button>
+            <button id="discard-cards-btn" class="action-btn tertiary" disabled>Discard Selected Cards</button>
+            <div class="selection-counter">
+                <span id="selected-count">0</span>/<span id="max-selection">5</span> cards selected
+            </div>
+        </section>
+
+        <!-- Play Area -->
+        <section class="play-area-container">
+            <h2 class="section-title">Cards to Play (in order)</h2>
+            <div class="play-area" id="play-area">
+                <div class="play-area-placeholder">
+                    Select cards from your hand to play them in order
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Hand -->
+        <section class="hand-container">
+            <div class="hand-header">
+                <h2 class="section-title">Your Hand</h2>
+                <div class="deck-info">
+                    <span class="deck-label">Deck:</span>
+                    <span class="deck-size" id="deck-size">-</span>
+                    <span class="deck-label">cards left</span>
+                </div>
+            </div>
+            <div class="hand" id="card-hand">
+                <!-- Cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+            <!-- Game Status -->
+            <footer class="game-status">
+                <div class="status-message" id="status-message">
+                    Welcome to Nautro! Start a new game to begin your survival journey.
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nautro - DEF CON CTF 33 CHALLENGE</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+      a {
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header with game info -->
+            <header class="game-header">
+                <div class="game-title">
+                    <h1>NAUTRO - DEF CON CTF 33 CHALLENGE</h1>
+                </div>
+            </header>
+            <div class="game-status">
+              <p>
+                NAUTRO is a card game that is also a pwnable ctf challenge!
+              </p>
+              <p>
+                This challenge was deployed during DEF CON CTF 33. During that game many teams wrote exploits against a few of the bugs...
+                <br/>
+                However... <strong>there are many more vulnerabilities still hidden!</strong>
+                <br/>
+                <br/>
+                Now some of those easier exploits have been patched...
+                <br/>
+                <br/>
+                <strong>I challenge you to exploit it again!</strong>
+                <br/>
+                <br/>
+                To prove your exploit works, retrive the <strong>/flag</strong> file from this server.
+                <br/>
+                🌠 <strong>Bonus points if you can give me a signed card which instantly wins the game.</strong>
+                <br/>
+                <small style="color: #666;">
+                🤖 Clanker points if your AI agent fully solves the challenge on its own.</small>
+              </p>
+              <br/>
+              <br/>
+              <p>
+                You can find the source code for this challenge here: <a href="https://github.com/itszn/nautro" target="_blank">https://github.com/itszn/nautro</a>
+                <br/>
+                You can download the exact binary this server is running here: <a href="/static/main">main</a> <a href="/static/libengine_base.so">libengine_base.so</a>
+                <br/>
+                You can pull the exact docker image running on the server here:
+                <code>docker pull mojalaxy/nautro:latest</code>
+              </p>
+              <br/>
+              <br/>
+              <p>
+                You can message me on <a href="https://x.com/itszn13" target="_blank">Twitter</a> to talk about this challenge! Please tell me how you solved it!
+              </p>
+              <!-- eth4 was here -->
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <p>Server restarts every 5 minutes</p>
+              <iframe src="/static/last_update.txt" style="width: 28em; height: 4em; border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-top: 10px;"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
